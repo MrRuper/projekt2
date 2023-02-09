@@ -2,7 +2,7 @@
 // Jeśli nie jest, to program się skompiluje. W przeciwnym razie wystapi
 // błąd kompilacji.
 #if TEST_NUM == 603
-#define NDEBUG
+  #define NDEBUG
   #define cerr
 #endif /* TEST_NUM == 603 */
 
@@ -13,18 +13,18 @@
 #include "hash.h"
 
 #ifdef NDEBUG
-#undef NDEBUG
+  #undef NDEBUG
 #endif
 
 #if TEST_NUM == 102 || TEST_NUM == 601
-#include <cassert>
+ #include <cassert>
  #include <vector>
 #endif
 
 namespace {
 
 #if TEST_NUM == 102
-    using ::std::data;
+  using ::std::data;
   uint64_t hash_function(uint64_t const *v, size_t n) {
     uint64_t hash = 0;
     for (size_t k = 0; k < n; ++k)
@@ -40,7 +40,7 @@ namespace {
 #endif /* TEST_NUM == 102 */
 
 #if TEST_NUM == 601
-    using ::std::vector;
+  using ::std::vector;
   using ::std::data;
   uint64_t hash_function(uint64_t const *v, size_t n) {
     uint64_t hash = n;
@@ -55,7 +55,7 @@ namespace {
 int main() {
 // Drugi test przykładowy ze specyfikacji zadania
 #if TEST_NUM == 102
-    assert(!::jnp1::hash_test(id, data<uint64_t>({9, 5, 3, 1}), 4));
+  assert(!::jnp1::hash_test(id, data<uint64_t>({9, 5, 3, 1}), 4));
   assert(::jnp1::hash_insert(id, data<uint64_t>({9, 5, 3, 1}), 4));
   assert(!::jnp1::hash_test(id, data<uint64_t>({0, 1, 3, 5, 9}), 5));
   assert(::jnp1::hash_size(id) == 2);
@@ -65,7 +65,7 @@ int main() {
 
 // Czy wszystkie funkcje są w przestrzeni ::jnp1? Ma się kompilować.
 #if TEST_NUM == 601
-    unsigned long id = ::jnp1::hash_create(hash_function);
+  unsigned long id = ::jnp1::hash_create(hash_function);
   vector<uint64_t> seq({1000, 5000, 2000, 5000});
   assert(::jnp1::hash_insert(id, seq.data(), seq.size()));
   assert(::jnp1::hash_test(id, seq.data(), seq.size()));
